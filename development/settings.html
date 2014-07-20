@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Dashboard | Lock screen</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- bootstrap 3.0.2 -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- font Awesome -->
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="assets/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="controller/settings.js"></script>
+
+</head>
+
+<body class="skin-blue">
+    <header class="header">
+        <a href="dashboard.html" class="logo">
+            <!-- Add the class icon to your logo image or logo icon to add the margining -->
+            myDashboard
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+
+        </nav>
+    </header>
+    <aside class="right-side">
+        <!-- Main content -->
+        <section class="content">
+            <h3>Settings</h3>
+            <hr/>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="location">My Location</label>
+                    <input type="text" class="form-control" placeholder="Enter your location (ex: New york)" id="location">
+                    <label class="control-label hide" for="location"><i class="fa fa-times-circle-o"></i> Required</label>
+                </div>
+                <div class="form-group">
+                    <label for="flikrTags">Flickr Search Tags</label>
+                    <input type="text" class="form-control" placeholder="Enter Flickr search tags (ex: bikes)" id="flikrTags">
+                    <label class="control-label hide" for="flikrTags"><i class="fa fa-times-circle-o"></i> Required</label>
+                </div>
+                <br/>
+                <button type="button" id="settings" class="btn bg-olive">Save Settings</button>
+                <button type="button" id="skip" class="btn bg-gray">Skip</button>
+            </div>
+        </section>
+        <!-- /.content -->
+    </aside>
+
+    <!-- jQuery 2.0.2 -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript">
+    var settings = JSON.parse(localStorage.getItem('settings'));
+    var user = JSON.parse(localStorage.getItem('user'));
+
+    if (settings && !settings.dummy) {
+        if (settings.location) $('#location').val(settings.location.trim());
+        if (settings.flickr) $('#flikrTags').val(settings.flickr.trim());
+    }
+
+    $('#settings').on('click', function() {
+        var $loc = $('#location').val().trim(),
+            $flickr = $('#flikrTags').val().trim();
+
+        if ($loc.length <= 0) {
+            $('#location').parents('.form-group').addClass('has-error');
+            $('#location').next().removeClass('hide');
+            return false;
+        } else {
+            $('#location').parents('.form-group').removeClass('has-error');
+            $('#location').next().addClass('hide');
+        }
+
+        if ($flickr.length <= 0) {
+            $('#flikrTags').parents('.form-group').addClass('has-error');
+            $('#flikrTags').next().removeClass('hide');
+            return false;
+        } else {
+            $('#flikrTags').parents('.form-group').removeClass('has-error');
+            $('#flikrTags').next().addClass('hide');
+        }
+
+        var resp = dash.saveSetting(user._id, {
+            'location': $loc,
+            'flickr': $flickr
+        });
+
+        if (resp == 1) {
+            location.href = 'dashboard.html';
+        } else {
+            alert('Oops something went wrong!');
+        }
+    });
+    $('#skip').on('click', function() {
+        if (!(settings && !settings.dummy)) {
+            localStorage.setItem('settings', JSON.stringify({
+                'dummy': 'object',
+                'location': 'new york',
+                'flickr': 'bikes'
+            }));
+        }
+        location.href = 'dashboard.html';
+    });
+    </script>
+</body>
+
+</html>

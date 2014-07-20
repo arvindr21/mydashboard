@@ -1,0 +1,32 @@
+{
+  "name": "myDashboard",
+  "version": "0.0.1",
+  "description": "A node-webkit dashboard application",
+  "main": "index.html",
+  "private": true,
+  "keywords": [
+    "node",
+    "webkit",
+    "dashbaord",
+    "win",
+    "osx"
+  ],
+  "window": {
+    "toolbar": false,
+    "resizable": false,
+    "width": 1000,
+    "height": 600,
+    "min_width": 600,
+    "min_height": 400,
+    "max_width": 1000,
+    "max_height": 600,
+    "position": "center"
+  },
+  "author": "Arvind Ravulavaru",
+  "license": "MIT",
+  "dependencies": {
+    "diskdb": "^0.1.14",
+    "bcrypt-nodejs": "0.0.3",
+    "weather-js": "^1.0.0"
+  }
+}

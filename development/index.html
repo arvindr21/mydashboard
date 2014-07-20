@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html class="bg-black">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Dashboard | Sign in</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- bootstrap 3.0.2 -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- font Awesome -->
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="assets/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="controller/auth.js"></script>
+    <script type="text/javascript">
+    if (JSON.parse(localStorage.getItem('user'))) location.href = 'dashboard.html';
+    </script>
+</head>
+
+<body class="bg-black">
+
+    <div class="form-box" id="login-box">
+        <div class="header">Sign In</div>
+        <form action="dashboard.html" method="post">
+            <div class="body bg-gray">
+                <div class="form-group has-error">
+                    <label class="control-label hide" id="form-val"><i class="fa fa-times-circle-o"></i> Please fill the form completely to continue</label>
+                </div>
+                <div class="form-group has-error">
+                    <label class="control-label hide" for="userid"><i class="fa fa-times-circle-o"></i> Required</label>
+                    <input type="text" name="userid" id="userid" class="form-control" placeholder="User ID" />
+                </div>
+                <div class="form-group has-error">
+                    <label class="control-label hide" for="password"><i class="fa fa-times-circle-o"></i> Required</label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" />
+                </div>
+            </div>
+            <div class="footer">
+                <button type="button" id="login" class="btn bg-olive btn-block">Sign me in</button>
+                <a href="register.html" class="text-center">Register a new account</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- jQuery 2.0.2 -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript">
+    $('#userid').on('blur', function() {
+        var $this = $(this);
+        if ($this.val().trim().length < 1) {
+            $this.prev().removeClass('hide');
+            return false;
+        } else {
+            $this.prev().addClass('hide');
+            return true;
+        }
+    });
+
+    $('#password').on('blur', function() {
+        var $this = $(this);
+        if ($this.val().trim().length < 1) {
+            $this.prev().removeClass('hide');
+            return false;
+        } else {
+            $this.prev().addClass('hide');
+            return true;
+        }
+    });
+
+    function triggerFormVal() {
+        if ($('#userid').val().trim().length > 0 && $('#password').val().trim().length > 0) {
+            return true;
+        } else {
+            $('#userid,#password').trigger('blur');
+            return false;
+        }
+    }
+
+    $('#login').on('click', function() {
+        if (triggerFormVal()) {
+            $('#form-val').addClass('hide');
+            var resp = dash.authUser($('#userid').val().trim(), $('#password').val().trim());
+            if (resp == 1) {
+                location.href = 'dashboard.html';
+            } else if (resp == 2) {
+                location.href = 'settings.html';
+            } else if (resp == 3) {
+                alert('Invalid Userid or password');
+            } else {
+                alert('No user exists with this ID');
+            }
+        } else {
+            $('#form-val').removeClass('hide');
+        }
+    });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html class="bg-black">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Dashboard | Sign up</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- bootstrap 3.0.2 -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- font Awesome -->
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="assets/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="controller/auth.js"></script>
+    <script type="text/javascript">
+    if (JSON.parse(localStorage.getItem('user'))) location.href = 'dashboard.html';
+    </script>
+</head>
+
+<body class="bg-black">
+
+    <div class="form-box" id="login-box">
+        <div class="header">Register New Account</div>
+        <form>
+            <div class="body bg-gray">
+                <div class="form-group has-error">
+                    <label class="control-label hide" id="form-val"><i class="fa fa-times-circle-o"></i> Please fill the form completely to continue</label>
+                </div>
+                <div class="form-group has-error">
+                    <label class="control-label hide" for="name"><i class="fa fa-times-circle-o"></i> Name should be at least 1 charcter</label>
+                    <input type="text" name="name" id="name" class="form-control" placeholder="Full name" />
+                </div>
+                <div class="form-group has-error">
+                    <label class="control-label hide" for="userid"><i class="fa fa-times-circle-o"></i> User ID should be at least 1 charcter</label>
+                    <input type="text" name="userid" id="userid" class="form-control" placeholder="User ID" />
+                </div>
+                <div class="form-group has-error">
+                    <label class="control-label hide" for="password"><i class="fa fa-times-circle-o"></i> Password should be at least 1 charcter</label>
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" />
+                </div>
+            </div>
+            <div class="footer">
+                <button type="button" id="register" class="btn bg-olive btn-block">Sign me up</button>
+                <a href="index.html" class="text-center">I already an account</a>
+            </div>
+        </form>
+
+    </div>
+
+
+    <!-- jQuery 2.0.2 -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script type="text/javascript">
+    $('#name').on('blur', function() {
+        var $this = $(this);
+        if ($this.val().trim().length < 1) {
+            $this.prev().removeClass('hide');
+            return false;
+        } else {
+            $this.prev().addClass('hide');
+            return true;
+        }
+    });
+
+    $('#userid').on('blur', function() {
+        var $this = $(this);
+        if ($this.val().trim().length < 1) {
+            $this.prev().removeClass('hide');
+            return false;
+        } else {
+            $this.prev().addClass('hide');
+            return true;
+        }
+    });
+    $('#password').on('blur', function() {
+        var $this = $(this);
+        if ($this.val().trim().length < 1) {
+            $this.prev().removeClass('hide');
+            return false;
+        } else {
+            $this.prev().addClass('hide');
+            return true;
+        }
+    });
+
+    function triggerFormVal() {
+        if ($('#name').val().trim().length > 0 && $('#userid').val().trim().length > 0 && $('#password').val().trim().length > 0) {
+            return true;
+        } else {
+            $('#name,#userid,#password').trigger('blur');
+            return false;
+        }
+    }
+
+    $('#register').on('click', function() {
+        if (triggerFormVal()) {
+            var resp = dash.registerUser($('#name').val().trim(), $('#userid').val().trim(), $('#password').val().trim());
+            if (resp == 1) {
+                location.href = 'dashboard.html';
+            } else if (resp == 2) {
+                location.href = 'settings.html';
+            } else {
+                alert('Oops something went wrong!');
+            }
+            $('#form-val').addClass('hide');
+        } else {
+            $('#form-val').removeClass('hide');
+        }
+    });
+    </script>
+</body>
+
+</html>

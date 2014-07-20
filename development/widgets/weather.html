@@ -1,0 +1,54 @@
+<style type="text/css">
+.wh-wrapper {
+    background-color: #f0f7fd;
+    border: 1px solid #d0e3f0;
+    padding: 10px;
+    text-transform: uppercase;
+}
+.wh-wrapper .col-md-3 {
+    text-align: center;
+    border-right: 1px solid #64A4CF;
+}
+.wh-wrapper .col-md-3:last-child {
+    border-right: none;
+}
+.wh-wrapper .col-md-3 h4 {
+	padding-bottom: 5px;
+    border-bottom: 1px solid #00c0ef;
+}
+.wh-wrapper h2{
+	text-align: center;
+}
+</style>
+<script type="text/javascript" src="controller/weather.js"></script>
+<script type="text/javascript">
+var settings = JSON.parse(localStorage.getItem('settings'));
+dash.getWeather(settings.location, function(data) {
+    console.log(data);
+    if (data.length > 0) {
+        var wthr = data[0].current; // show the current data from first observation point
+        var html = '<div class="wh-wrapper">';
+	        	html += '<h3><img src="'+wthr.imageUrl+'" />'+wthr.skytext+'</h3>';
+	        	html += '<div class="row">';
+		        	html += '<div class="col-md-3">';
+		        		html += '<h4>Today</h4><label>'+wthr.day+'</label> | <label>'+wthr.date+'</label>';
+		        	html += '</div>';
+		        	html += '<div class="col-md-3">';
+		        		html += '<h4>Temperature</h4><label>'+wthr.temperature+' degrees Farenhiet</label>';
+		        	html += '</div>';
+		        	html += '<div class="col-md-3">';
+		        		html += '<h4>Wind</h4><label>'+wthr.winddisplay+'</label>';
+		        	html += '</div>';
+		        	html += '<div class="col-md-3">';
+		        		html += '<h4>Humidity</h4><label>'+wthr.humidity+'%</label>';
+		        	html += '</div>';
+	        	html += '</div>';
+        	html += '</div>';
+
+        $('#weather').html(html);
+    } else {
+        // no data
+        $('#weather').html('<div class="wh-wrapper"><h2>Service unavailable</h2></div>');
+    }
+});
+</script>

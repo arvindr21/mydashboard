@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Dashboard | Dashboard</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <!-- bootstrap 3.0.2 -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- font Awesome -->
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <!-- Ionicons -->
+    <link href="assets/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <!-- Theme style -->
+    <link href="assets/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+    .uname,.info,.content-header {
+        text-transform: uppercase;
+    }
+    </style>
+    <script type="text/javascript" src="controller/auth.js"></script>
+    <script type="text/javascript">
+    if (!JSON.parse(localStorage.getItem('settings'))) location.href = 'settings.html';
+    </script>
+</head>
+
+<body class="skin-blue">
+    <!-- header logo: style can be found in header.less -->
+    <header class="header">
+        <a href="dashboard.html" class="logo">
+            <!-- Add the class icon to your logo image or logo icon to add the margining -->
+            myDashboard
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="navbar-btn sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <div class="navbar-right">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        <a href="lockscreen.html">
+                            <i class="glyphicon glyphicon-lock"></i>
+                            <span>LOCK SCREEN</span>
+                        </a>
+                    </li>
+                    <li class="dropdown user user-menu">
+                        <a href="settings.html">
+                            <i class="fa fa-gears"></i>
+                            <span>SETTINGS</span>
+                        </a>
+                    </li>
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <span>
+                                <span class='uname'></span><i class="caret"></i>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- User image -->
+                            <li class="user-header bg-light-blue">
+                                <img src="assets/img/avatar5.png" class="img-circle" alt="User Image" />
+                                <p>
+                                    <span class='uname'></span>
+                                </p>
+                            </li>
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-right">
+                                    <a href="#" id="signout" class="btn btn-default btn-flat">Sign out</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="wrapper row-offcanvas row-offcanvas-left">
+        <!-- Left side column. contains the logo and sidebar -->
+        <aside class="left-side sidebar-offcanvas">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <img src="assets/img/avatar5.png" class="img-circle" alt="User Image" />
+                    </div>
+                    <div class="pull-left info">
+                        <p>Hello,
+                            <span class='uname'></span>
+                        </p>
+                    </div>
+                </div>
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    <li>
+                        <a href="calender.html">
+                            <i class="fa fa-calendar"></i> 
+                            <span>CALENDER</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="settings.html">
+                            <i class="fa fa-gears"></i> 
+                            <span>SETTINGS</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Right side column. Contains the navbar and content of the page -->
+        <aside class="right-side">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Welcome to your Dashboard
+                </h1>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="box box-info">
+                    <div class="box-header">
+                        <h3 class="box-title">MY WEATHER REPORT</h3>
+                        <div class="box-tools pull-right">
+                            <div class="label bg-aqua maploc"></div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="weather"></div>
+                        <!-- /.box-body -->
+                    </div>
+                    <div class="box-footer">
+                        <a href="settings.html">Change location</a>
+                    </div>
+                </div>
+                <div class="box box-warning">
+                    <div class="box-header">
+                        <h3 class="box-title">MY MAP</h3>
+                        <div class="box-tools pull-right">
+                            <div class="label bg-aqua maploc"></div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="map-canvas"></div>
+                        <!-- /.box-body -->
+                    </div>
+                    <div class="box-footer">
+                        <a href="settings.html">Change location</a>
+                    </div>
+                </div>
+                <div class="box box-danger">
+                    <div class="box-header">
+                        <h3 class="box-title">MY FLICKR SEARCH</h3>
+                        <div class="box-tools pull-right">
+                            <div class="label bg-aqua flickrtags"></div>
+                        </div>
+                    </div>
+                    <div class="box-body">
+                        <div id="wrapper">
+                            <div id="columns">
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <a href="settings.html">Change tags</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- /.content -->
+        </aside>
+        <!-- /.right-side -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery 2.0.2 -->
+    <script src="assets/js/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <!-- AdminLTE App -->
+    <script src="assets/js/app.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    var user = JSON.parse(localStorage.getItem('user'));
+    var settings = JSON.parse(localStorage.getItem('settings'));
+    $('.uname').text(user.name.trim());
+
+    $('#signout').on('click', function(e) {
+        e.preventDefault();
+        if (dash.signOut()) location.href = 'index.html';
+        else alert('Oops something went wrong!');
+    });
+
+    // load widgets async
+    $.get('widgets/flickr.html', function(data) {
+        $('body').append(data)
+    });
+    $.get('widgets/maps.html', function(data) {
+        $('body').append(data);
+    });
+    $.get('widgets/weather.html', function(data) {
+        $('body').append(data);
+    });
+
+    // update the dashboard with values from settings
+    $('.maploc').text(settings.location.trim().toUpperCase());
+    $('.flickrtags').text(settings.flickr.trim().toUpperCase());
+    </script>
+</body>
+
+</html>

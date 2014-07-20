@@ -1,0 +1,61 @@
+<style type="text/css">
+#wrapper {
+    width: 90%;
+    max-width: 700px;
+    min-width: 500px;
+    margin: 50px auto;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+#columns {
+    -webkit-column-count: 3;
+    -webkit-column-gap: 10px;
+    -webkit-column-fill: auto;
+    -moz-column-count: 3;
+    -moz-column-gap: 10px;
+    -moz-column-fill: auto;
+    column-count: 3;
+    column-gap: 15px;
+    column-fill: auto;
+}
+.pin {
+    display: inline-block;
+    background: #FEFEFE;
+    border: 2px solid #FAFAFA;
+    box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+    margin: 0 2px 15px;
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    column-break-inside: avoid;
+    padding: 15px;
+    padding-bottom: 5px;
+    background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
+    opacity: 1;
+    -webkit-transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+}
+.pin img {
+    width: 100%;
+    padding-bottom: 15px;
+    margin-bottom: 5px;
+}
+</style>
+
+<script>
+var settings = JSON.parse(localStorage.getItem('settings'));
+$.getJSON("http://api.flickr.com/services/feeds/photos_public.gne?jsoncallback=?", {
+        tags: settings.flickr,
+        tagmode: "any",
+        format: "json"
+    },
+    function(data) {
+        var imgs = '';
+        $.each(data.items, function(i, item) {
+            imgs += '<div class="pin"><img src="' + item.media.m + '" /> </div>';
+            if (i == 8) return false;
+        });
+        $('#columns').html(imgs);
+    });
+</script>
